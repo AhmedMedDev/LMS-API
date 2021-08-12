@@ -31,7 +31,6 @@ app.get('/', () => res.send('Hello World') );
 
  app.use('/api/v1/auth',  require('./routes/api/auth.js'));
 
-//
 
 /**
  * Post Routes
@@ -39,14 +38,11 @@ app.get('/', () => res.send('Hello World') );
 
 app.use('/api/v1/posts',  require('./routes/api/post.js'));
 
+/**
+ * System Routes
+ */
 
-//
-
-
-
-
-
-
+ app.use('/api/v1/systems',  require('./routes/api/system.js'));
 
 
 
