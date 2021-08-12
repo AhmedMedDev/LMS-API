@@ -29,19 +29,7 @@ app.get('/', () => res.send('Hello World') );
  * Auth Routes
  */
 
- const AuthController = require('./app/Http/Controllers/Auth/AuthController.js');
-
- const LoginController = require('./app/Http/Controllers/Auth/LoginController.js');
- 
- const RegisterController = require('./app/Http/Controllers/Auth/RegisterController.js');
- 
- app.post('/login', LoginController.login)
- 
- app.post('/register', RegisterController.register)
- 
- app.get('/refresh', authenticateToken.handle, AuthController.refresh)
-
- app.get('/me', authenticateToken.handle, AuthController.me)
+ app.use('/api/v1/auth',  require('./routes/api/auth.js'));
 
 //
 
@@ -49,10 +37,7 @@ app.get('/', () => res.send('Hello World') );
  * Post Routes
  */
 
-app.use('/api/v1/posts',  require('./routes/post.js'));
-
-
-
+app.use('/api/v1/posts',  require('./routes/api/post.js'));
 
 
 //

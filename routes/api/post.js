@@ -2,13 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 
-const validate = require('../app/Http/Middleware/validate.js')
+const validate = require('../../app/Http/Middleware/validate.js')
 
-const StoreRquest = require('../app/Http/Requests/StorePostRquest.js')
+const StoreRquest = require('../../app/Http/Requests/StorePostRquest.js')
 
-const UpdateRquest = require('../app/Http/Requests/UpdatePostRquest.js')
+const UpdateRquest = require('../../app/Http/Requests/UpdatePostRquest.js')
 
-const Post = require('../app/Http/Controllers/API/PostController.js')
+const Post = require('../../app/Http/Controllers/API/PostController.js')
 
 const PostController = new Post()
 

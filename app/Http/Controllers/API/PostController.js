@@ -1,7 +1,6 @@
 const Controller = require('../Controller.js')
 
 const Post = require('../../../Models/Post.js')
-const { post } = require('../../../../routes/post.js')
 
 class PostController extends Post
 {

@@ -27,18 +27,20 @@ class User
 
     static register = async (data, result)  => 
     {
-        let {first_name, last_name, email, password} = data
+        let {name, email, password, img} = data
+
+        img = (!img) ? 'uploads/users/img/default.png' : img
 
         password = await bcrypt.hash(password, 10)
 
         DB_CONNECTION.execute( 
-            'INSERT INTO users (first_name,	last_name, email, password) VALUES (?,?,?,?)',
-            [first_name, last_name, email, password],
+            'INSERT INTO users (name, email, password, img) VALUES (?,?,?,?)',
+            [name, email, password, img],
             (err, res) => 
         {
-            if (err) throw err;
+            if (err) return result(err, null);
 
-            result(null, res);
+            return result(null, res);
         })
     }
 

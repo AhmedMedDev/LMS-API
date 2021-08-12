@@ -9,7 +9,7 @@ class LoginController
     {
         User.attemp(req.body, (err, user) => 
         {
-            if (!isNaN(user)) return res.status(401).json({
+            if (user == null) return res.status(401).json({
                 success : false,
                 payload : "Unauthorized"
             })
