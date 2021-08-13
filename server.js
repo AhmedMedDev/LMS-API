@@ -29,7 +29,7 @@ const authenticateToken = require('./app/Http/Middleware/authenticateToken.js');
 
 //
 
-app.get('/', () => res.send('Hello World'));
+app.get('/', (req, res) => res.send('Hello World'));
 
 /**
  * Auth Routes
@@ -50,6 +50,11 @@ app.use('/api/v1/posts',  require('./routes/api/post.js'));
 
  app.use('/api/v1/systems',  require('./routes/api/system.js'));
 
+
+
+
+// Return to handling style
+ app.use('*', (req, res) => res.render('views/404'));
 
 
 app.listen(port, () => console.log(`Express is running at port ${port}`));
