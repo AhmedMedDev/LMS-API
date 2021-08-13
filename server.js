@@ -16,6 +16,11 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'))
 
+app.set('view engine', 'ejs')
+
+app.set('views', 'resources')
+
+
 /**
  * Middlewares
  */
@@ -24,14 +29,7 @@ const authenticateToken = require('./app/Http/Middleware/authenticateToken.js');
 
 //
 
-
 app.get('/', () => res.send('Hello World'));
-
-// app.get('/', (req, res) => {
-//     res.sendFile( path.join(__dirname, 'resources', 'views', 'welcome.html'));
-// });
-
-
 
 /**
  * Auth Routes
