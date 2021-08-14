@@ -37,7 +37,7 @@ class PostController extends Post
         {
             if (!isNaN(post)) return res.status(404).json({
                 success : false,
-                payload : "Resource Not Found"
+                payload : "Resource not found"
             })
 
             return res.status(200).json({

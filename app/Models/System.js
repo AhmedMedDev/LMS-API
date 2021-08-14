@@ -8,9 +8,24 @@ class System
             'SELECT * FROM systems',
             (err, res) => 
         {
-            if (err) throw err;
+            if (err) return result(err, null);
 
-            result(null, res);
+            return result(null, res);
+        })
+    }
+
+    static create = (data, result) => 
+    {
+        const {Sname} = data;
+
+        DB_CONNECTION.execute( 
+            'INSERT INTO systems (name) VALUES (?)',
+            [Sname],
+            (err, res) => 
+        {
+            if (err) return result(err, null);
+
+            return result(null, res);
         })
     }
 
@@ -21,52 +36,37 @@ class System
             [id],
             (err, res) => 
         {
-            if (err) throw err;
+            if (err) return result(err, null);
 
-            result(null, res);
+            return result(null, res);
         })
     }
 
-    static create = (data, result) => 
+    static update = (id, data, result) => 
     {
-        const {name, created_at, updated_at} = data;
+        const {Sname} = data;
 
         DB_CONNECTION.execute( 
-            'INSERT INTO systems (name, created_at, updated_at) VALUES (?,?,?)',
-            [name, created_at, updated_at],
+            'UPDATE systems SET Sname = ? WHERE id = ?', 
+            [Sname, id],
             (err, res) => 
         {
-            if (err) throw err;
+            if (err) return result(err, null);
 
-            result(null, res);
-        })
-    }
-
-    static update = (id,data, result) => 
-    {
-        const {name, created_at, updated_at} = data;
-
-        DB_CONNECTION.execute( 
-            'UPDATE systems SET name = ? , created_at = ? , updated_at = ? WHERE id = ?', 
-            [name, created_at, updated_at,id],
-            (err, res) => 
-        {
-            if (err) throw err;
-
-            result(null, res);
+            return result(null, res);
         })
     }
 
     static delete = (id, result) => 
     {
         DB_CONNECTION.execute( 
-            'DELETE FROM systems WHERE ssn = ?',
+            'DELETE FROM systems WHERE id = ?',
             [id],
             (err, res) => 
         {
-            if (err) throw err;
+            if (err) return result(err, null);
 
-            result(null, res);
+            return result(null, res);
         })
     }
 

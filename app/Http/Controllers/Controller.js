@@ -1,13 +1,20 @@
 class Controller 
 {
-    static IsNotFound(resource, res) 
+    static notFoundResource (res) 
     {
-        if (!resource) return res.status(404).json({
+        return res.status(404).json({
             success : false,
-            payload : "Not Found"
+            payload : "Resource not found"
         })
     }
 
+    static queryError (res,err) 
+    {
+        return res.status(500).json({
+            success : false,
+            payload : err
+        })
+    }
 }
 
 module.exports = Controller;

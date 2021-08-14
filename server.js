@@ -8,9 +8,9 @@ const cors = require('cors')
 
 const path = require('path');
 
-const app = express();
-
 const port = process.env.PORT || 5000;
+
+const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -39,7 +39,7 @@ app.get('/', (req, res) => res.send('Hello World'));
  * Auth Routes
  */
 
- app.use('/api/v1/auth',  require('./routes/api/auth.js'));
+app.use('/api/v1/auth',  require('./routes/api/auth.js'));
 
 
 /**
@@ -52,7 +52,7 @@ app.use('/api/v1/posts',  require('./routes/api/post.js'));
  * System Routes
  */
 
- app.use('/api/v1/systems',  require('./routes/api/system.js'));
+app.use('/api/v1/systems',  require('./routes/api/system.js'));
 
 
 

@@ -1,6 +1,8 @@
 const System = require("../../../Models/System");
 
-class SystemController
+const Controller = require("../Controller");
+
+class SystemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,10 +14,7 @@ class SystemController
     {
         System.getAll( (err, systems) => {
 
-            if (err) return res.status(400).json({
-                success : false,
-                payload : err
-            })
+            if (err) return Controller.queryError(res, err)
             
             return res.status(200).json({
                 success : true,
@@ -32,7 +31,15 @@ class SystemController
      */
     store (req, res)
     {
-      
+        System.create(req.body, (err, post) => 
+        {
+            if (err) return Controller.queryError(res, err)
+            
+            return res.status(200).json({
+                success : true,
+                payload : post
+            })
+        })
     }
 
     /**
@@ -43,7 +50,17 @@ class SystemController
      */
     show (req, res)
     {
+        System.getByID(req.params.id, (err, system) =>  
+        {
+            if (err) return Controller.queryError(res, err)
 
+            if (!isNaN(system)) return Controller.notFoundResource(res)
+
+            return res.status(200).json({
+                success : true,
+                payload : system
+            })
+        })
     }
 
     /**
@@ -54,7 +71,14 @@ class SystemController
      */
     update (req, res)
     {
+        System.update(req.params.id, req.body, (err, system) => 
+        {
+            if (!system.affectedRows) return Controller.notFoundResource(res)
 
+            return res.status(200).json({
+                success : true,
+            })
+        })
     }
 
     /**
@@ -65,7 +89,14 @@ class SystemController
      */
     destroy (req, res)
     {
+        System.delete(req.params.id, (err, system) =>  
+        {
+            if (!system.affectedRows) return Controller.notFoundResource(res)
 
+            return res.status(200).json({
+                success : true,
+            })
+        })
     }
 }
 
