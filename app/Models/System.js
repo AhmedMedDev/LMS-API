@@ -2,72 +2,41 @@ const DB_CONNECTION = require('../../config/database.js');
 
 class System 
 {
-    static getAll = result => 
+    static getAll = () => 
     {
-        DB_CONNECTION.execute( 
-            'SELECT * FROM systems',
-            (err, res) => 
-        {
-            if (err) return result(err, null);
-
-            return result(null, res);
-        })
+        return DB_CONNECTION.execute('SELECT * FROM systems')
     }
 
-    static create = (data, result) => 
+    static create = data => 
     {
         const {Sname} = data;
 
-        DB_CONNECTION.execute( 
-            'INSERT INTO systems (name) VALUES (?)',
-            [Sname],
-            (err, res) => 
-        {
-            if (err) return result(err, null);
-
-            return result(null, res);
-        })
+        return DB_CONNECTION.execute( 
+            'INSERT INTO systems (Sname) VALUES (?)',
+            [Sname])
     }
 
-    static getByID = (id, result) => 
+    static getByID = id => 
     {
-        DB_CONNECTION.execute( 
+        return DB_CONNECTION.execute( 
             'SELECT * FROM systems WHERE id = ?',
-            [id],
-            (err, res) => 
-        {
-            if (err) return result(err, null);
-
-            return result(null, res);
-        })
+            [id])
     }
 
-    static update = (id, data, result) => 
+    static update = (id, data) => 
     {
         const {Sname} = data;
 
-        DB_CONNECTION.execute( 
+        return DB_CONNECTION.execute( 
             'UPDATE systems SET Sname = ? WHERE id = ?', 
-            [Sname, id],
-            (err, res) => 
-        {
-            if (err) return result(err, null);
-
-            return result(null, res);
-        })
+            [Sname, id])
     }
 
-    static delete = (id, result) => 
+    static delete = id => 
     {
-        DB_CONNECTION.execute( 
+        return DB_CONNECTION.execute( 
             'DELETE FROM systems WHERE id = ?',
-            [id],
-            (err, res) => 
-        {
-            if (err) return result(err, null);
-
-            return result(null, res);
-        })
+            [id])
     }
 
 }

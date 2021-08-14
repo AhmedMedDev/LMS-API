@@ -10,17 +10,20 @@ class SystemController extends Controller
      * @param {*} req 
      * @param {*} res 
      */
-    index (req, res)
+    async index (req, res)
     {
-        System.getAll( (err, systems) => {
-
-            if (err) return Controller.queryError(res, err)
+        try {
             
+            let systems = await System.getAll();
+
             return res.status(200).json({
                 success : true,
-                payload : systems
+                payload : systems[0]
             })
-        })
+
+        } catch (error) {
+            return Controller.queryError(res, error)
+        }
     }
 
     /**
@@ -29,17 +32,21 @@ class SystemController extends Controller
      * @param {*} req 
      * @param {*} res 
      */
-    store (req, res)
+    async store (req, res)
     {
-        System.create(req.body, (err, post) => 
-        {
-            if (err) return Controller.queryError(res, err)
+        try {
             
+            let systems = await System.create(req.body);
+
             return res.status(200).json({
                 success : true,
-                payload : post
+                payload : systems[0]
             })
-        })
+
+        } catch (error) {
+            return Controller.queryError(res, error)
+        }
+
     }
 
     /**
@@ -48,19 +55,22 @@ class SystemController extends Controller
      * @param {*} req 
      * @param {*} res 
      */
-    show (req, res)
+    async show (req, res)
     {
-        System.getByID(req.params.id, (err, system) =>  
-        {
-            if (err) return Controller.queryError(res, err)
+        try {
+            
+            let system = await System.getByID(req.params.id);
 
-            if (!isNaN(system)) return Controller.notFoundResource(res)
+            if (!isNaN(system[0])) return Controller.notFoundResource(res)
 
             return res.status(200).json({
                 success : true,
-                payload : system
+                payload : system[0]
             })
-        })
+
+        } catch (error) {
+            return Controller.queryError(res, error)
+        }
     }
 
     /**
@@ -69,16 +79,19 @@ class SystemController extends Controller
      * @param {*} req 
      * @param {*} res 
      */
-    update (req, res)
+    async update (req, res)
     {
-        System.update(req.params.id, req.body, (err, system) => 
-        {
-            if (!system.affectedRows) return Controller.notFoundResource(res)
+        try {
+            
+            let system = await System.update(req.params.id, req.body);
 
-            return res.status(200).json({
-                success : true,
-            })
-        })
+            if (!system[0].affectedRows) return Controller.notFoundResource(res)
+
+            return res.status(200).json({success : true})
+
+        } catch (error) {
+            return Controller.queryError(res, error)
+        }
     }
 
     /**
@@ -87,16 +100,19 @@ class SystemController extends Controller
      * @param {*} req 
      * @param {*} res 
      */
-    destroy (req, res)
+    async destroy (req, res)
     {
-        System.delete(req.params.id, (err, system) =>  
-        {
-            if (!system.affectedRows) return Controller.notFoundResource(res)
+        try {
+            
+            let system = await System.delete(req.params.id);
 
-            return res.status(200).json({
-                success : true,
-            })
-        })
+            if (!system[0].affectedRows) return Controller.notFoundResource(res)
+
+            return res.status(200).json({success : true})
+
+        } catch (error) {
+            return Controller.queryError(res, error)
+        }
     }
 }
 
