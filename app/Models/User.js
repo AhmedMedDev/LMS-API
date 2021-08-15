@@ -33,15 +33,9 @@ class User
 
         password = await bcrypt.hash(password, 10)
 
-        DB_CONNECTION.execute( 
+        return DB_CONNECTION.execute( 
             'INSERT INTO users (name, email, password, img) VALUES (?,?,?,?)',
-            [name, email, password, img],
-            (err, res) => 
-        {
-            if (err) return result(err, null);
-
-            return result(null, res);
-        })
+            [name, email, password, img])
     }
 
 }

@@ -1,21 +1,28 @@
-const User = require("../../../Models/User")
+const User = require("../../../Models/User");
 
-class RegisterController
+const Controller = require("../Controller");
+
+const VerifyEmail = require("../../../Mails/VerifyEmail");
+
+class RegisterController extends Controller
 {
-    static register (req, res) 
+    static async register (req, res) 
     {
-        User.register (req.body, (err, result) => {
+        try {
+            let user = await User.register(req.body);
 
-            if (err) return res.status(400).json({
-                success : false,
-                payload : err
-            })
+            let verifyEmail =  new VerifyEmail(req.body)
+
+            verifyEmail.send();
 
             return res.status(200).json({
                 success : true,
-                payload : result
+                payload : user[0]
             })
-        })
+
+        } catch (error) {
+            return Controller.queryError(res, error)
+        }
     }
 }
 
