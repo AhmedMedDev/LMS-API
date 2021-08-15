@@ -4,7 +4,7 @@ const Controller = require("../Controller");
 
 const RegisterObserver = require("../../../Observers/RegisterObserver");
 
-class RegisterController extends Controller
+class RegisterController 
 {
     static async register (req, res) 
     {

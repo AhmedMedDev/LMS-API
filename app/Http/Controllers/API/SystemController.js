@@ -2,7 +2,7 @@ const System = require("../../../Models/System");
 
 const Controller = require("../Controller");
 
-class SystemController extends Controller
+class SystemController 
 {
     /**
      * Display a listing of the resource.

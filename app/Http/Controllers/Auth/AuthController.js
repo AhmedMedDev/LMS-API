@@ -56,8 +56,8 @@ class AuthController
             success : true,
             token: accessToken,
             token_type: 'bearer',
-            user : userInfo,
-            expires_in: '30m'
+            expires_in: '30m',
+            user : userInfo
         })
     }
 }
