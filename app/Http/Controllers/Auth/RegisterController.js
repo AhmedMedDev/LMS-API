@@ -2,7 +2,7 @@ const User = require("../../../Models/User");
 
 const Controller = require("../Controller");
 
-const VerifyEmail = require("../../../Mails/VerifyEmail");
+const RegisterObserver = require("../../../Observers/RegisterObserver");
 
 class RegisterController extends Controller
 {
@@ -11,13 +11,13 @@ class RegisterController extends Controller
         try {
             let user = await User.register(req.body);
 
-            let verifyEmail =  new VerifyEmail(req.body)
-
-            verifyEmail.send();
+            req.body.userID = user[0].insertId
+            
+            RegisterObserver.registered(req.body)
 
             return res.status(200).json({
                 success : true,
-                payload : user[0]
+                payload : "Check Your Email"
             })
 
         } catch (error) {
