@@ -1,22 +1,23 @@
 const Mailer = require("./Mail")
 const ejs = require('ejs');
-const fs = require('fs');
+const path = require("path");
 
 let VerifyEmail = class  
 {
-    constructor (user) {
+    constructor (user) 
+    {
         this.user = user
     }
 
-    send () {
-        let info = {
+    async send () 
+    {
+        const view = path.join('resources','mails','VerifyEmail.ejs');
+
+        Mailer.build({
             to: this.user.email, 
             subject: "Verify Email ✔", 
-            html: ejs.render('views/404'), 
-        }
-
-        Mailer.build(info)
+            html: await ejs.renderFile(view, {user:this.user}), 
+        })
     }
 }
-
 module.exports = VerifyEmail
