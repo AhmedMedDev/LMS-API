@@ -17,7 +17,7 @@ class ResetPassController
     {
         try {
             
-            let user = await User.getByEmail(req.body.email)
+            let user = await User.getByEmail(req.body.email) 
 
             if (!isNaN(user[0]))
                 return ResponseServiceProvider.notFoundResource(res)
