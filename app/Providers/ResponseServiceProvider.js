@@ -29,6 +29,21 @@ class ResponseServiceProvider
             payload : err
         })
     }
+
+    /**
+     * Server Error Response 
+     * 
+     * @param {*} res 
+     * @param {*} err 
+     * @returns 
+     */
+    static unauthorized (res) 
+    {
+        return res.status(500).json({
+            success : false,
+            payload : "Unauthorized"
+        })
+    }
 }
 
 module.exports = ResponseServiceProvider

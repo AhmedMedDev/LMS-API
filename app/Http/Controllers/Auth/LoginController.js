@@ -1,27 +1,24 @@
-const User = require("../../../Models/User");
+const AuthServiceProvider = require("../../../Providers/AuthServiceProvider");
 const jwtServiceProvider = require("../../../Providers/jWTServiceProvider");
+const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider");
 
 class LoginController
 {
-    static login (req, res) 
+    static async login (req, res) 
     {
-        User.attemp(req.body, (err, user) => 
-        {
-            if (user == null) return res.status(401).json({
-                success : false,
-                payload : "Unauthorized"
-            })
+        let result = await AuthServiceProvider.attemp(req.body)
 
-            let payload = {
-                data: {
-                    user_id : user[0].id
-                }
+        if (!result.auth) return ResponseServiceProvider.unauthorized(res)
+        
+        let payload = {
+            data: {
+                user_id : result.user.id
             }
+        }
 
-            const accessToken = jwtServiceProvider.generateAccessToken(payload)
+        const accessToken = jwtServiceProvider.generateAccessToken(payload)
 
-            return jwtServiceProvider.respondWithToken(accessToken,user[0],res)
-        })
+        return jwtServiceProvider.respondWithToken(accessToken,result.user,res)
     }
 }
 
