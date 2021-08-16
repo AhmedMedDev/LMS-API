@@ -1,6 +1,6 @@
-const Mailer = require("./Mail")
 const ejs = require('ejs');
 const path = require("path");
+const MailServiceProvider = require("../Providers/MailServiceProvider");
 
 
 class ResetPasswordEmail
@@ -8,7 +8,6 @@ class ResetPasswordEmail
     constructor (data) 
     {
         this.user = data.user
-
 
         this.pincode = data.pincode
     }
@@ -19,7 +18,7 @@ class ResetPasswordEmail
 
         const data = {user:this.user, pincode : this.pincode}
 
-        Mailer.build({
+        MailServiceProvider.build({
             to: this.user.email, 
             subject: "Reset Password ✔", 
             html: await ejs.renderFile(view, data), 

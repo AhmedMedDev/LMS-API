@@ -1,6 +1,6 @@
-const Mailer = require("./Mail")
 const ejs = require('ejs');
 const path = require("path");
+const MailServiceProvider = require("../Providers/MailServiceProvider");
 
 class VerifyEmail
 {
@@ -13,7 +13,7 @@ class VerifyEmail
     {
         const view = path.join('resources','mails','VerifyEmail.ejs');
 
-        Mailer.build({
+        MailServiceProvider.build({
             to: this.user.email, 
             subject: "Verify Email ✔", 
             html: await ejs.renderFile(view, {user:this.user}), 
