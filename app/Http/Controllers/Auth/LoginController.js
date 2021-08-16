@@ -1,7 +1,5 @@
 const User = require("../../../Models/User");
-const Controller = require("../Controller");
-
-const AuthController = require("./AuthController");
+const jwtServiceProvider = require("../../../Providers/jWTServiceProvider");
 
 class LoginController
 {
@@ -20,9 +18,9 @@ class LoginController
                 }
             }
 
-            const accessToken = AuthController.generateAccessToken(payload)
+            const accessToken = jwtServiceProvider.generateAccessToken(payload)
 
-            return AuthController.respondWithToken(accessToken,user[0],res)
+            return jwtServiceProvider.respondWithToken(accessToken,user[0],res)
         })
     }
 }

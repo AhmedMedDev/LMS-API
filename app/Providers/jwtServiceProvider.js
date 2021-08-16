@@ -1,22 +1,7 @@
 const jwt = require('jsonwebtoken')
 
-class AuthController
+class jwtServiceProvider
 {
-    /**
-     * Get the authenticated User.
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     * @returns Payload information
-     */
-    static me (req, res)
-    {
-        return res.status(200).json({
-            success : true,
-            payload: req.payload.data,
-        })
-    }
-
     /**
      * Generate token 
      * 
@@ -26,20 +11,6 @@ class AuthController
     static generateAccessToken (payload) 
     {
         return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
-    }
-
-    /**
-     * Generate a new token 
-     * 
-     * @param {*} req 
-     * @param {*} res 
-     * @returns 
-     */
-    static refresh (req, res)
-    {
-        const accessToken = AuthController.generateAccessToken(req.payload.data)
-
-        return AuthController.respondWithToken(accessToken, req.payload.data, res)
     }
 
     /**
@@ -60,6 +31,7 @@ class AuthController
             user : userInfo
         })
     }
+
 }
 
-module.exports = AuthController
+module.exports = jwtServiceProvider
