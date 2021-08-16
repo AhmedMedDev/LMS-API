@@ -96,6 +96,24 @@ class User
             [email_verified_at, id])
     }
 
+    static findByEmail = email => 
+    {
+        return DB_CONNECTION.execute( 
+            'SELECT * FROM users WHERE email = ?',
+            [email])
+    }
+
+    static updatePassword = async (id, data) =>
+    {
+        const { newPassword } = data;
+
+        // Hash Password
+        const password = await bcrypt.hash(newPassword, 10)
+
+        return DB_CONNECTION.execute( 
+            'UPDATE users SET password = ? WHERE id = ?', 
+            [password, id])
+    }
 }
 
 module.exports = User;

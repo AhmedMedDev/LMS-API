@@ -7,6 +7,7 @@ const LoginController = require('../../app/Http/Controllers/Auth/LoginController
 const RegisterController = require('../../app/Http/Controllers/Auth/RegisterController.js');
 const authenticateToken = require('../../app/Http/Middleware/authenticateToken.js');
 const VerificationController = require('../../app/Http/Controllers/Auth/VerificationController.js');
+const ResetPassController = require('../../app/Http/Controllers/Auth/ResetPassController.js');
 
 
 router.post('/register', RegisterController.register)
@@ -18,5 +19,12 @@ router.get('/refresh', authenticateToken.handle, AuthController.refresh)
 router.get('/me', authenticateToken.handle, AuthController.me)
 
 router.get('/emailVerification/:verification_code', VerificationController.emailVerification)
+
+router.post('/preResetPassword', ResetPassController.preResetPassword)
+
+router.post('/confirmPincode', ResetPassController.confirmPincode)
+
+router.post('/resetPassword', ResetPassController.resetPassword)
+
 
 module.exports = router;

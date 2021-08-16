@@ -2,7 +2,7 @@ const Mailer = require("./Mail")
 const ejs = require('ejs');
 const path = require("path");
 
-let VerifyEmail = class  
+class VerifyEmail
 {
     constructor (user) 
     {
