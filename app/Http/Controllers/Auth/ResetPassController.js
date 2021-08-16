@@ -24,7 +24,7 @@ class ResetPassController
     
             ResetPassword.create({user_id : user[0][0].id, pincode})
 
-            ResetPassObserver.index({user:user[0][0], pincode})
+            ResetPassObserver.preResetPassword({user:user[0][0], pincode})
 
             return res.status(200).json({
                 success : true,
@@ -47,7 +47,7 @@ class ResetPassController
     {
         try {
 
-            let resetpassRow = ResetPassword.findeByPincode(req.body.pincode)
+            let resetpassRow = ResetPassword.getByPincode(req.body.pincode)
 
             if (!isNaN(resetpassRow[0])) return Controller.notFoundResource(res)
 
@@ -74,16 +74,16 @@ class ResetPassController
         try {
 
             // Check Pincode 
-            let resetpassRow = await ResetPassword.findeByPincode(req.body.pincode)
+            let resetpassRow = await ResetPassword.getByPincode(req.body.pincode)
 
             if (!isNaN(resetpassRow[0])) return Controller.notFoundResource(res)
 
             // Change password 
             User.updatePassword(resetpassRow[0][0].user_id, req.body)
 
-            return res.status(200).json({
-                success : true,
-            })
+            ResetPassObserver.resetPassword(resetpassRow[0][0].user_id)
+
+            return res.status(200).json({success : true})
 
         } catch (error) {
             return Controller.queryError(res, error)

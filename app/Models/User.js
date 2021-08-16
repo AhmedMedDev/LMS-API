@@ -96,6 +96,12 @@ class User
             [email_verified_at, id])
     }
 
+    /**
+     * Find user by email
+     * 
+     * @param {*} email 
+     * @returns 
+     */
     static findByEmail = email => 
     {
         return DB_CONNECTION.execute( 
@@ -103,6 +109,14 @@ class User
             [email])
     }
 
+    /**
+     * 
+     * Change password
+     * 
+     * @param {*} id 
+     * @param {*} data 
+     * @returns 
+     */
     static updatePassword = async (id, data) =>
     {
         const { newPassword } = data;
