@@ -1,15 +1,26 @@
 const User = require("../../../Models/User")
-const ResponseServiceProvider = require("./ResponseServiceProvider")
+const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider")
 
 class VerificationController 
 {
+    /**
+     * Email Verification 
+     * Find user by verification_code
+     * - - - Not Found if Not Exist
+     * Make sure That he hasn't been verified before
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @returns 
+     */
     static async emailVerification (req, res) 
     {
         try {
 
             let user = await User.findByVerificationCode(req.params.verification_code)
 
-            if (!isNaN(user[0])) return ResponseServiceProvider.notFoundResource(res)
+            if (!isNaN(user[0])) 
+                return ResponseServiceProvider.notFoundResource(res)
             
             if (user[0][0].email_verified_at != null) {
                 

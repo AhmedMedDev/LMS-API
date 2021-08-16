@@ -1,8 +1,8 @@
 const ResetPassword = require("../../../Models/ResetPassword");
 const ResetPassObserver = require("../../../Observers/ResetPassObserver");
 const User = require("../../../Models/User");
-const Controller = require("../Controller");
-const ResponseServiceProvider = require("./ResponseServiceProvider");
+const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider");
+
 
 class ResetPassController
 {
@@ -19,7 +19,8 @@ class ResetPassController
             
             let user = await User.findByEmail(req.body.email)
 
-            if (!isNaN(user[0])) return ResponseServiceProvider.notFoundResource(res)
+            if (!isNaN(user[0]))
+                return ResponseServiceProvider.notFoundResource(res)
     
             let pincode = Math.floor(Math.random() * 999999) + 100000;
     
@@ -50,7 +51,8 @@ class ResetPassController
 
             let resetpassRow = ResetPassword.getByPincode(req.body.pincode)
 
-            if (!isNaN(resetpassRow[0])) return Controller.notFoundResource(res)
+            if (!isNaN(resetpassRow[0])) 
+                return ResponseServiceProvider.notFoundResource(res)
 
             return res.status(200).json({
                 success : true,
@@ -58,13 +60,14 @@ class ResetPassController
             })
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 
     /**
      * Reset Password 
-     * Make sure pincode is correct and update password
+     * Make sure pincode is correct 
+     * update password
      * 
      * @param {*} req 
      * @param {*} res 
@@ -77,7 +80,8 @@ class ResetPassController
             // Check Pincode 
             let resetpassRow = await ResetPassword.getByPincode(req.body.pincode)
 
-            if (!isNaN(resetpassRow[0])) return Controller.notFoundResource(res)
+            if (!isNaN(resetpassRow[0])) 
+                return ResponseServiceProvider.notFoundResource(res)
 
             // Change password 
             User.updatePassword(resetpassRow[0][0].user_id, req.body)
@@ -87,7 +91,7 @@ class ResetPassController
             return res.status(200).json({success : true})
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 }

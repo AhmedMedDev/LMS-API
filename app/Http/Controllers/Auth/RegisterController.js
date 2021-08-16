@@ -1,12 +1,17 @@
 const User = require("../../../Models/User");
-
-const Controller = require("../Controller");
-
 const RegisterObserver = require("../../../Observers/RegisterObserver");
-const ResponseServiceProvider = require("./ResponseServiceProvider");
+const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider");
+
 
 class RegisterController 
 {
+    /**
+     * Register a new user
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     * @returns 
+     */
     static async register (req, res) 
     {
         try {

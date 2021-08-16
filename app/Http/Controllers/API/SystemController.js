@@ -1,5 +1,5 @@
 const System = require("../../../Models/System");
-const ResponseServiceProvider = require("../Auth/ResponseServiceProvider");
+const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider");
 
 class SystemController 
 {
