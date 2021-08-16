@@ -102,7 +102,7 @@ class User
      * @param {*} email 
      * @returns 
      */
-    static findByEmail = email => 
+    static getByEmail = email => 
     {
         return DB_CONNECTION.execute( 
             'SELECT * FROM users WHERE email = ?',
