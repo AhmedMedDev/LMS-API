@@ -118,4 +118,4 @@ class SystemController
     }
 }
 
-module.exports = SystemController;
+module.exports = new SystemController;

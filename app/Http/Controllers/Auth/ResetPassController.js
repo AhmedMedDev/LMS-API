@@ -1,6 +1,6 @@
 const ResetPassword = require("../../../Models/ResetPassword");
-const ResetPassObserver = require("../../../Observers/ResetPassObserver");
 const User = require("../../../Models/User");
+const ResetPassObserver = require("../../../Observers/ResetPassObserver");
 const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider");
 
 
@@ -13,7 +13,7 @@ class ResetPassController
      * @param {*} res 
      * @returns 
      */
-    static async preResetPassword (req, res)  
+    async preResetPassword (req, res)  
     {
         try {
             
@@ -45,11 +45,11 @@ class ResetPassController
      * @param {*} res 
      * @returns 
      */
-    static confirmPincode (req, res)
+    async confirmPincode (req, res)
     {
         try {
 
-            let resetpassRow = ResetPassword.getByPincode(req.body.pincode)
+            let resetpassRow = new ResetPassword.getByPincode(req.body.pincode)
 
             if (!isNaN(resetpassRow[0])) 
                 return ResponseServiceProvider.notFoundResource(res)
@@ -73,7 +73,7 @@ class ResetPassController
      * @param {*} res 
      * @returns 
      */
-    static async resetPassword (req, res)
+    async resetPassword (req, res)
     {
         try {
 
@@ -96,4 +96,4 @@ class ResetPassController
     }
 }
 
-module.exports = ResetPassController
+module.exports = new ResetPassController

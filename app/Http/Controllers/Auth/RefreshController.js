@@ -9,7 +9,7 @@ class RefreshController
      * @param {*} res 
      * @returns 
      */
-    static refresh (req, res)
+    refresh (req, res)
     {
         const accessToken = jwtServiceProvider.generateAccessToken(req.payload.data)
 
@@ -18,4 +18,4 @@ class RefreshController
 
 }
 
-module.exports = RefreshController
+module.exports = new RefreshController

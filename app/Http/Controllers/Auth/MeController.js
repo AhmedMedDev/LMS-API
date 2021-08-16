@@ -8,7 +8,7 @@ class MeController
      * @param {*} res 
      * @returns Payload information
      */
-    static me (req, res)
+    me (req, res)
     {
         return res.status(200).json({
             success : true,
@@ -18,4 +18,4 @@ class MeController
 
 }
 
-module.exports = MeController
+module.exports = new MeController

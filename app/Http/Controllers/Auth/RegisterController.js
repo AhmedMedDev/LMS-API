@@ -12,7 +12,7 @@ class RegisterController
      * @param {*} res 
      * @returns 
      */
-    static async register (req, res) 
+    async register (req, res) 
     {
         try {
             let user = await User.register(req.body);
@@ -32,4 +32,4 @@ class RegisterController
     }
 }
 
-module.exports = RegisterController
+module.exports = new RegisterController

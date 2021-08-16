@@ -4,7 +4,7 @@ const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvi
 
 class LoginController
 {
-    static async login (req, res) 
+    async login (req, res) 
     {
         let result = await AuthServiceProvider.attemp(req.body)
 
@@ -22,4 +22,4 @@ class LoginController
     }
 }
 
-module.exports = LoginController
+module.exports = new LoginController

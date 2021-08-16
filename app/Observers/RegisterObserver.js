@@ -3,7 +3,7 @@ const VerifyEmail = require("../Mails/VerifyEmail");
 
 class RegisterObserver
 {
-    static registered (userInfo) 
+    registered (userInfo) 
     {
         let verifyEmail =  new VerifyEmail(userInfo)
 
@@ -11,4 +11,4 @@ class RegisterObserver
     }
 }
 
-module.exports = RegisterObserver
+module.exports = new RegisterObserver

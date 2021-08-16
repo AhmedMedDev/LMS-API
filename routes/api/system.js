@@ -4,11 +4,9 @@ const router = express.Router();
 
 const validate = require('../../app/Http/Middleware/validate.js')
 
-const System = require('../../app/Http/Controllers/API/SystemController.js');
+const SystemController = require('../../app/Http/Controllers/API/SystemController.js');
 
 const SystemRequest = require('../../app/Http/Requests/System/SystemRequest.js');
-
-const SystemController = new System()
 
 
 router.get('/',SystemController.index);

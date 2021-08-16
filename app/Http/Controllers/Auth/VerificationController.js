@@ -13,7 +13,7 @@ class VerificationController
      * @param {*} res 
      * @returns 
      */
-    static async emailVerification (req, res) 
+    async emailVerification (req, res) 
     {
         try {
 
@@ -43,4 +43,4 @@ class VerificationController
     }
 }
 
-module.exports = VerificationController
+module.exports = new VerificationController

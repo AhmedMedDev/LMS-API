@@ -31,7 +31,7 @@ class ResponseServiceProvider
     }
 
     /**
-     * Server Error Response 
+     * unauthorized Response 
      * 
      * @param {*} res 
      * @param {*} err 
