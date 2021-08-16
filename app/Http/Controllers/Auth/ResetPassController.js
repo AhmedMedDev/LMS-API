@@ -49,7 +49,7 @@ class ResetPassController
     {
         try {
 
-            let resetpassRow = new ResetPassword.getByPincode(req.body.pincode)
+            let resetpassRow = await ResetPassword.getByPincode(req.body.pincode)
 
             if (!isNaN(resetpassRow[0])) 
                 return ResponseServiceProvider.notFoundResource(res)
