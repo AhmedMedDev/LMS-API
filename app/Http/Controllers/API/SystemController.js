@@ -1,6 +1,5 @@
 const System = require("../../../Models/System");
-
-const Controller = require("../Controller");
+const ResponseServiceProvider = require("../Auth/ResponseServiceProvider");
 
 class SystemController 
 {
@@ -22,7 +21,7 @@ class SystemController
             })
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 
@@ -44,7 +43,7 @@ class SystemController
             })
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
 
     }
@@ -61,7 +60,8 @@ class SystemController
             
             let system = await System.getByID(req.params.id);
 
-            if (!isNaN(system[0])) return Controller.notFoundResource(res)
+            if (!isNaN(system[0])) 
+                return ResponseServiceProvider.notFoundResource(res)
 
             return res.status(200).json({
                 success : true,
@@ -69,7 +69,7 @@ class SystemController
             })
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 
@@ -85,12 +85,13 @@ class SystemController
             
             let system = await System.update(req.params.id, req.body);
 
-            if (!system[0].affectedRows) return Controller.notFoundResource(res)
+            if (!system[0].affectedRows) 
+                return ResponseServiceProvider.notFoundResource(res)
 
             return res.status(200).json({success : true})
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 
@@ -106,12 +107,13 @@ class SystemController
             
             let system = await System.delete(req.params.id);
 
-            if (!system[0].affectedRows) return Controller.notFoundResource(res)
+            if (!system[0].affectedRows) 
+                return ResponseServiceProvider.notFoundResource(res)
 
             return res.status(200).json({success : true})
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 }

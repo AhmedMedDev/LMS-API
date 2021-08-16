@@ -20,4 +20,5 @@ class VerifyEmail
         })
     }
 }
+
 module.exports = VerifyEmail

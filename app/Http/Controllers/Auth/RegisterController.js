@@ -3,6 +3,7 @@ const User = require("../../../Models/User");
 const Controller = require("../Controller");
 
 const RegisterObserver = require("../../../Observers/RegisterObserver");
+const ResponseServiceProvider = require("./ResponseServiceProvider");
 
 class RegisterController 
 {
@@ -21,7 +22,7 @@ class RegisterController
             })
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 }

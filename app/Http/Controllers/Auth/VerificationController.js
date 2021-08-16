@@ -1,5 +1,5 @@
 const User = require("../../../Models/User")
-const Controller = require("../Controller")
+const ResponseServiceProvider = require("./ResponseServiceProvider")
 
 class VerificationController 
 {
@@ -9,7 +9,7 @@ class VerificationController
 
             let user = await User.findByVerificationCode(req.params.verification_code)
 
-            if (!isNaN(user[0])) return Controller.notFoundResource(res)
+            if (!isNaN(user[0])) return ResponseServiceProvider.notFoundResource(res)
             
             if (user[0][0].email_verified_at != null) {
                 
@@ -27,7 +27,7 @@ class VerificationController
             })
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 }

@@ -2,6 +2,7 @@ const ResetPassword = require("../../../Models/ResetPassword");
 const ResetPassObserver = require("../../../Observers/ResetPassObserver");
 const User = require("../../../Models/User");
 const Controller = require("../Controller");
+const ResponseServiceProvider = require("./ResponseServiceProvider");
 
 class ResetPassController
 {
@@ -18,7 +19,7 @@ class ResetPassController
             
             let user = await User.findByEmail(req.body.email)
 
-            if (!isNaN(user[0])) return Controller.notFoundResource(res)
+            if (!isNaN(user[0])) return ResponseServiceProvider.notFoundResource(res)
     
             let pincode = Math.floor(Math.random() * 999999) + 100000;
     
@@ -32,7 +33,7 @@ class ResetPassController
             })
 
         } catch (error) {
-            return Controller.queryError(res, error)
+            return ResponseServiceProvider.serverError(res, error)
         }
     }
 
