@@ -5,29 +5,6 @@ const bcrypt = require('bcryptjs')
 class User 
 {
     /**
-     * Handling Register Operation 
-     * 
-     * @param {*} data 
-     * @returns 
-     */
-    static register = async data  => 
-    {
-        let {name, email, password, img} = data
-
-        // Insert default img if img dosen't exist
-        img = (!img) ? 'uploads/users/img/default.png' : img
-
-        // Generate Verification Code
-        let verify_code = Math.floor(Math.random() * 999999) + 100000;
-
-        // Hash Password
-        password = await bcrypt.hash(password, 10)
-
-        // Create a new user
-        return User.create(name, email, password, img, verify_code)
-    }
-
-    /**
      * Store a new recorde 
      * 
      * @param {*} name 
@@ -50,7 +27,7 @@ class User
      * @param {*} verificationCode 
      * @returns 
      */
-    static findByVerificationCode = verificationCode =>
+    static getByVerificationCode = verificationCode =>
     {
         return DB_CONNECTION.execute( 
             'SELECT * FROM users WHERE verify_code = ?',

@@ -17,7 +17,7 @@ class VerificationController
     {
         try {
 
-            let user = await User.findByVerificationCode(req.params.verification_code)
+            let user = await User.getByVerificationCode(req.params.verification_code)
 
             if (!isNaN(user[0])) 
                 return ResponseServiceProvider.notFoundResource(res)

@@ -1,5 +1,6 @@
 const User = require("../../../Models/User");
 const RegisterObserver = require("../../../Observers/RegisterObserver");
+const AuthServiceProvider = require("../../../Providers/AuthServiceProvider");
 const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider");
 
 
@@ -15,7 +16,7 @@ class RegisterController
     async register (req, res) 
     {
         try {
-            let user = await User.register(req.body);
+            let user = await AuthServiceProvider.register(req.body);
 
             req.body.userID = user[0].insertId
             
