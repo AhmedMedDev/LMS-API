@@ -38,7 +38,7 @@ class AuthServiceProvider
         let {name, email, password, img} = data
 
         // Insert default img if img dosen't exist
-        img = (!img) ? 'uploads/users/img/default.png' : img
+        img = (!img) ? 'uploads/users/avatar/default.png' : img
 
         // Generate Verification Code
         let verify_code = Math.floor(Math.random() * 999999) + 100000;
