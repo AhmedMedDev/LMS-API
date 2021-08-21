@@ -1,5 +1,6 @@
 const System = require("../../../Models/System");
 const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider");
+const Cache = require("../../../../config/cache");
 
 class SystemController 
 {
@@ -13,7 +14,12 @@ class SystemController
     {
         try {
             
+            if (Cache.has('systems'))
+                return ResponseServiceProvider.cache(res, 'systems')
+
             let systems = await System.getAll();
+
+            Cache.set("systems", systems[0], 60*60*24)
 
             return res.status(200).json({
                 success : true,

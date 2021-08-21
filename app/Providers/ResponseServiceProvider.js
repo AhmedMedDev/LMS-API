@@ -1,3 +1,4 @@
+const Cache = require("../../config/cache")
 
 class ResponseServiceProvider
 {
@@ -42,6 +43,21 @@ class ResponseServiceProvider
         return res.status(500).json({
             success : false,
             payload : "Unauthorized"
+        })
+    }
+
+    /**
+     * unauthorized Response 
+     * 
+     * @param {*} res 
+     * @param {*} err 
+     * @returns 
+     */
+    static cache (res, key) 
+    {
+        return res.status(200).json({
+            success : true,
+            payload : Cache.get(key)
         })
     }
 }
