@@ -22,6 +22,16 @@ class User
     }
 
     /**
+     * Get List of Emails
+     * 
+     * @returns 
+     */
+    static getAllEmails = () => 
+    {
+        return DB_CONNECTION.execute('SELECT email FROM users')
+    }
+
+    /**
      * Find User By verification Code
      * 
      * @param {*} verificationCode 

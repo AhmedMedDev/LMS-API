@@ -10,9 +10,10 @@ const RefreshController = require('../../app/Http/Controllers/Auth/RefreshContro
 const MeController = require('../../app/Http/Controllers/Auth/MeController.js');
 const VerificationController = require('../../app/Http/Controllers/Auth/VerificationController.js');
 const ResetPassController = require('../../app/Http/Controllers/Auth/ResetPassController.js');
+const RegisterRequest = require('../../app/Http/Requests/Auth/RegisterRequest.js');
 
 
-router.post('/register', RegisterController.register)
+router.post('/register', validate(RegisterRequest), RegisterController.register)
 
 router.post('/login', LoginController.login)
 
