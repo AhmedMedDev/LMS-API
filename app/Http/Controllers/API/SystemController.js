@@ -1,6 +1,7 @@
 const System = require("../../../Models/System");
 const ResponseServiceProvider = require("../../../Providers/ResponseServiceProvider");
 const Cache = require("../../../../config/cache");
+const SystemObserver = require("../../../Observers/SystemObserver");
 
 class SystemController 
 {
@@ -19,7 +20,7 @@ class SystemController
 
             let systems = await System.getAll();
 
-            Cache.set("systems", systems[0], 60*60*24)
+            Cache.set("systems", systems[0])
 
             return res.status(200).json({
                 success : true,
@@ -42,6 +43,9 @@ class SystemController
         try {
             
             let systems = await System.create(req.body);
+
+            // Inject Observer 
+            SystemObserver.created();
 
             return res.status(200).json({
                 success : true,
@@ -94,6 +98,9 @@ class SystemController
             if (!system[0].affectedRows) 
                 return ResponseServiceProvider.notFoundResource(res)
 
+            // Inject Observer 
+            SystemObserver.updated();
+
             return res.status(200).json({success : true})
 
         } catch (error) {
@@ -115,6 +122,9 @@ class SystemController
 
             if (!system[0].affectedRows) 
                 return ResponseServiceProvider.notFoundResource(res)
+
+            // Inject Observer 
+            SystemObserver.deleted();
 
             return res.status(200).json({success : true})
 
