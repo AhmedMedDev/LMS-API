@@ -7,7 +7,8 @@ class RegisterRequest
         return [
             // Name roles
             body('name')
-            .isLength({ min: 5 }).withMessage('must be at least 5 chars long'),
+            .isLength({ min: 5 })
+            .withMessage('must be at least 5 chars long'),
             // Email roles
             body('email')
             .isEmail()
@@ -19,7 +20,8 @@ class RegisterRequest
             .isLength({ min: 5 }),
             // Password roles
             body('password')
-            .isLength({ min: 5 }).withMessage('must be at least 5 chars long'),
+            .isLength({ min: 5 })
+            .withMessage('must be at least 5 chars long'),
             // password_confirmation roles
             body('password_confirmation')
             .custom ((value , {req}) => value == req.body.password )
